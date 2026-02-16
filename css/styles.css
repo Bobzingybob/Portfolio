@@ -212,6 +212,63 @@ main {
     background-color: #354F52;
 }
 
+.btn-read-more {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #52796F;
+    color: #CAD2C5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.btn-read-more:hover {
+    background-color: #354F52;
+    color: #CAD2C5;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: #f0f5f3;
+    border: 1px solid #84A98C;
+}
+
+.modal-header {
+    background-color: #354F52;
+    color: #CAD2C5;
+    border-bottom: 2px solid #84A98C;
+}
+
+.modal-title {
+    font-weight: bold;
+    color: #CAD2C5;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-body {
+    color: #354F52;
+}
+
+.modal-body ul {
+    list-style: disc;
+    padding-left: 2rem;
+}
+
+.modal-body li {
+    margin-bottom: 0.5rem;
+    color: #354F52;
+}
+
+.modal-footer {
+    border-top: 1px solid #84A98C;
+}
+
 /* ===========================
    Footer
    =========================== */
