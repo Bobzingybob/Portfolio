@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - My Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">William's Portfolio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="portfolio.html">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -22,19 +37,43 @@
             <h1>About Me</h1>
 
             <div class="about-text">
-                <h2>Who I Am</h2>
-                <p>I am a passionate developer dedicated to creating quality web applications and solutions.</p>
+                <h2>Personal Profile</h2>
+                <p>Enthusiastic, dependable, and hardworking individual with a strong commitment to delivering excellent customer service and working effectively as part of a team. Experienced in fast-paced environments, I bring energy, attention to detail, and a practical mindset to every role I take on. I am adaptable, quick to learn new skills, and take pride in being reliable and consistent in my work. With a growing interest in technology and problem-solving, I enjoy taking on challenges both independently and collaboratively, and I'm always eager to contribute positively in any team setting.</p>
 
-                <h2>Skills</h2>
+                <h2>Education</h2>
+                <p><strong>A-Levels – Ralph Allen School, Bath</strong></p>
+                <p><em>Results: August 14th, 2025</em></p>
                 <ul>
-                    <li>HTML5 & CSS3</li>
-                    <li>JavaScript</li>
-                    <li>Responsive Design</li>
-                    <li>Web Development</li>
+                    <li>Computer Science</li>
+                    <li>Mathematics</li>
+                    <li>Philosophy, Religion & Ethics</li>
+                </ul>
+                <p><strong>Currently:</strong> Aspiring Computer Science student at the University of Dundee</p>
+
+                <h2>Work Experience</h2>
+                <p><strong>Housekeeping – The Queensberry Hotel, Bath</strong></p>
+                <p><em>Full-time | Jul-Aug 2023</em></p>
+                <ul>
+                    <li>Maintained high cleanliness standards across rooms and communal areas</li>
+                    <li>Worked effectively under pressure during busy weekend and holiday periods</li>
+                    <li>Demonstrated reliability and commitment with early shifts and consistent attendance</li>
+                    <li>Collaborated with a close-knit housekeeping team to ensure guest satisfaction</li>
                 </ul>
 
-                <h2>Experience</h2>
-                <p>With a background in web development, I've worked on various projects ranging from static websites to dynamic applications.</p>
+                <h2>Key Projects & Achievements</h2>
+                <ul>
+                    <li>Developed a game in Unreal Engine using C++, applying structured problem-solving and self-directed learning</li>
+                    <li>Completed CS50 Introduction to Cybersecurity (Harvard edX)</li>
+                    <li>Created a number-sorting logic game in Python, involving algorithm design and debugging</li>
+                    <li>Completed AMSP course in "Building Confidence in Problem Solving"</li>
+                </ul>
+
+                <h2>Other Achievements & Activities</h2>
+                <ul>
+                    <li>Coast to Coast Cycle Challenge – Rode from Ilfracombe to Plymouth, demonstrating perseverance and dedication</li>
+                    <li>Personal programming projects in cybersecurity and game development</li>
+                    <li>Regularly engage in independent learning via online courses, YouTube, and developer forums</li>
+                </ul>
             </div>
         </section>
     </main>
@@ -42,6 +81,8 @@
     <footer>
         <p>&copy; 2026 My Portfolio. All rights reserved.</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
