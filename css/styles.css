@@ -104,6 +104,21 @@ main {
     margin: 2rem 0;
 }
 
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.photo-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .profile-photo {
     max-width: 100%;
     height: auto;
@@ -111,6 +126,18 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     max-height: 400px;
     object-fit: cover;
+}
+
+.gallery-photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+}
+
+.gallery-photo.tall {
+    max-height: 500px;
 }
 
 /* ===========================
@@ -418,6 +445,14 @@ footer {
 
     .projects {
         grid-template-columns: 1fr;
+    }
+
+    .photo-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-photo.tall {
+        max-height: 400px;
     }
 }
 
