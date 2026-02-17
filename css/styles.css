@@ -100,6 +100,48 @@ main {
     margin-bottom: 1rem;
 }
 
+/* CV Button in intro */
+.btn-cv {
+    background-color: #52796F;
+    color: #CAD2C5;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+    transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+}
+
+.btn-cv:hover {
+    background-color: #354F52;
+    transform: translateY(-4px) scale(1.02);
+    color: #CAD2C5;
+    box-shadow: 0 10px 26px rgba(37, 63, 62, 0.22);
+}
+
+/* Pulse animation to draw attention */
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        box-shadow: 0 14px 30px rgba(37, 63, 62, 0.22);
+        transform: translateY(-2px) scale(1.02);
+    }
+    100% {
+        box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+        transform: translateY(0) scale(1);
+    }
+}
+
+.pulse {
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
 /* ===========================
    Photo Section
    =========================== */
@@ -111,6 +153,12 @@ main {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photo-title {
+    color: #354F52;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .photo-gallery {
@@ -127,6 +175,9 @@ main {
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-color: #f0f5f3;
+    padding: 0.75rem;
+    border-radius: 8px;
 }
 
 .profile-photo {
@@ -134,7 +185,7 @@ main {
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-height: 400px;
+    max-height: 460px;
     object-fit: cover;
 }
 
@@ -147,12 +198,12 @@ main {
 }
 
 .gallery-photo.tall {
-    max-height: 350px;
-    aspect-ratio: 3 / 5;
+    max-height: 420px;
+    aspect-ratio: 3 / 4; /* more vertical */
 }
 
 .gallery-photo.wide {
-    max-height: 320px;
+    max-height: 420px;
     aspect-ratio: 16 / 9;
 }
 
@@ -162,9 +213,9 @@ main {
 
 .contact-section {
     background: white;
-    padding: 2rem;
+    padding: 1rem 1rem 1.5rem 1rem; /* reduced padding */
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 2rem;
 }
 
@@ -183,10 +234,11 @@ main {
 
 .contact-item {
     text-align: center;
-    padding: 1.5rem;
-    background-color: #f0f5f3;
+    padding: 1rem;
+    background-color: #ffffff; /* keep white but distinct */
     border-radius: 8px;
     border-left: 4px solid #84A98C;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .contact-item h3 {
@@ -217,7 +269,7 @@ main {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
+    max-width: 800px; /* enforce smaller max width */
     margin: 0 auto;
 }
 
@@ -296,6 +348,8 @@ main {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-left: 4px solid #84A98C;
+    display: flex; /* allow vertical layout */
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -311,6 +365,14 @@ main {
 .project-card p {
     color: #52796F;
     margin-bottom: 1.5rem;
+}
+
+/* push action buttons/links to the bottom of the card */
+.project-card > a,
+.project-card > .btn-read-more,
+.project-card > button {
+    margin-top: auto;
+    align-self: flex-start; /* keep left-aligned */
 }
 
 .project-card a {
@@ -390,7 +452,7 @@ main {
    =========================== */
 
 footer {
-    background-color: #354F52;
+    background-color: #354F52; /* dark green requested */
     color: #CAD2C5;
     text-align: center;
     padding: 2rem;
@@ -437,3 +499,13 @@ footer {
     }
 }
 
+html, body {
+    height: 100%;
+}
+
+body::after {
+    content: "";
+    display: block;
+    height: 40px;
+    background: #354F52; /* dark green strip to match footer */
+}
