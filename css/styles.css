@@ -452,9 +452,6 @@ main {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.card-icon img {
-    filter: invert(0%) brightness(0%);
-}
 
 .card-icon i.bi-github {
     color: #000000;
