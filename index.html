@@ -106,25 +106,22 @@
                 char.appendChild(hoverZoneTop);
                 char.appendChild(hoverZoneBottom);
 
-                // Store original position
-                const originalMargin = '0px';
-                let currentMargin = originalMargin;
+                // Original position
+                const originalMargin = 0;
 
                 // Top hover zone - moves character down
                 hoverZoneTop.addEventListener('mouseenter', () => {
-                    char.style.marginTop = '15px';
-                    char.style.transition = '0.15s cubic-bezier(0.23, 1, 0.32, 1)';
+                    char.style.marginTop = '8px';
                 });
 
                 // Bottom hover zone - moves character up
                 hoverZoneBottom.addEventListener('mouseenter', () => {
-                    char.style.marginTop = '-15px';
-                    char.style.transition = '0.15s cubic-bezier(0.23, 1, 0.32, 1)';
+                    char.style.marginTop = '-8px';
                 });
 
                 // Reset on mouse leave
                 char.addEventListener('mouseleave', () => {
-                    char.style.marginTop = originalMargin;
+                    char.style.marginTop = originalMargin + 'px';
                 });
             });
         });
