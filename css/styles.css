@@ -440,6 +440,39 @@ main {
     border-left: 4px solid #84A98C;
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.card-icon {
+    position: absolute;
+    bottom: 40px;
+    right: 25px;
+    opacity: 1;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.render-icon {
+    color: #0;
+}
+
+.card-icon i.bi-github {
+    color: #000000;
+    font-size: 40px;
+    margin-right: 15px;
+}
+
+.card-icon:hover .project-icon {
+    transform: scale(1.15);
+    opacity: 1;
+    cursor: pointer;
+}
+
+.card-icon img {
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .project-card:hover {
@@ -450,6 +483,17 @@ main {
 .project-card h2 {
     color: #354F52;
     margin-bottom: 1rem;
+}
+
+.project-icon {
+    width: 50px;      /* icon size */
+    height: 50px;     /* keeps them square */
+    padding: 6px;     /* same buffer as your buttons */
+    border-radius: 6px; /* optional: matches button rounding */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;      /* makes GitHub icon black */
 }
 
 .project-card p {
