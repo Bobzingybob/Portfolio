@@ -108,20 +108,9 @@
 
     <!-- Clean URL Routing System -->
     <script>
-        // Handle GitHub Pages 404 redirect - restore clean URL
-        if (sessionStorage.cleanPath) {
-            const cleanPath = sessionStorage.cleanPath;
-            delete sessionStorage.cleanPath;
-            // Replace the URL bar to show the clean path (without .html)
-            window.history.replaceState(null, null, cleanPath);
-        }
-
         // Client-side routing for clean URLs
         document.addEventListener('DOMContentLoaded', function() {
             const router = {
-                // Check if running on GitHub Pages
-                isGitHubPages: window.location.hostname === 'bobzingybob.github.io',
-
                 // Cache for loaded page content
                 pageCache: {},
 
@@ -154,17 +143,14 @@
 
                 // Handle navigation
                 navigate: function(page) {
-                    // On GitHub Pages, use clean URLs
-                    if (this.isGitHubPages) {
-                        const cleanUrls = {
-                            'home': '/Portfolio/home',
-                            'about': '/Portfolio/about',
-                            'portfolio': '/Portfolio/portfolio'
-                        };
-                        const newUrl = cleanUrls[page] || '/Portfolio/home';
-                        window.history.pushState(null, null, newUrl);
-                    }
-                    // Locally, just update the route without changing the actual URL
+                    const cleanUrls = {
+                        'home': '/Portfolio/home',
+                        'about': '/Portfolio/about',
+                        'portfolio': '/Portfolio/portfolio'
+                    };
+
+                    const newUrl = cleanUrls[page] || '/Portfolio/home';
+                    window.history.pushState(null, null, newUrl);
                     this.handleRoute();
                 },
 

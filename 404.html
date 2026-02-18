@@ -4,24 +4,14 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-        // GitHub Pages 404.html clean URL routing
-        // This allows clean URLs like /Portfolio/home instead of /Portfolio/index.html
-
-        const l = window.location;
-
-        // Extract the requested path (e.g., /Portfolio/home)
-        let path = l.pathname;
-
-        // Store the clean path for the router to use
-        sessionStorage.cleanPath = path;
-
-        // Redirect to index.html but the router will handle showing the right content
-        // Use replace to not add to history
-        l.replace(l.origin + '/Portfolio/?redirected=' + encodeURIComponent(path));
+        // Check if URL ends with ".html"
+        if (window.location.pathname.endsWith('.html')) {
+            // Redirect to the same page without ".html"
+            window.location.href = window.location.pathname.replace('.html', '');
+        }
     </script>
 </head>
 <body>
-    <p>Redirecting...</p>
 </body>
 </html>
 
