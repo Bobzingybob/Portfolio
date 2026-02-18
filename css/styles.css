@@ -15,6 +15,25 @@ body {
     background-color: #CAD2C5;
 }
 
+/* Global heading styles */
+h1, h2, h3 {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+h3 {
+    font-weight: 600;
+}
+
 /* ===========================
    Header & Navigation
    =========================== */
