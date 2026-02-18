@@ -94,7 +94,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const brandChars = document.querySelectorAll('.brand-char');
-            const brandContainer = document.querySelector('.interactive-brand');
 
             brandChars.forEach((char, index) => {
                 // Create hover zones above and below each character
@@ -109,23 +108,19 @@
 
                 // Original position
                 const originalMargin = 0;
-                let isMoving = false;
 
                 // Top hover zone - moves character down
                 hoverZoneTop.addEventListener('mouseenter', () => {
-                    isMoving = true;
                     char.style.marginTop = '15px';
                 });
 
                 // Bottom hover zone - moves character up
                 hoverZoneBottom.addEventListener('mouseenter', () => {
-                    isMoving = true;
                     char.style.marginTop = '-15px';
                 });
 
-                // Reset on brand container mouse leave
-                brandContainer.addEventListener('mouseleave', () => {
-                    isMoving = false;
+                // Reset when leaving individual character
+                char.addEventListener('mouseleave', () => {
                     char.style.marginTop = originalMargin + 'px';
                 });
             });
