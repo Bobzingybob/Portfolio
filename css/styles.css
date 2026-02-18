@@ -459,7 +459,7 @@ main {
 .card-icon i.bi-github {
     color: #000000;
     font-size: 40px;
-    right: 10px;
+    right: 20px;
 }
 
 .card-icon:hover .project-icon {
