@@ -114,8 +114,12 @@
                     const returnThresholdY = charHeight * 0.4;
                     const horizontalProximity = charWidth * 1.2; // Only respond if cursor is this close horizontally
 
-                    // Only process if cursor is horizontally close to this character
-                    if (Math.abs(distanceFromCenterX) <= horizontalProximity) {
+                    // Check if cursor is within the character's bounding box vertically (with small buffer)
+                    const verticalProximity = charHeight * 0.8;
+                    const isWithinVerticalBounds = Math.abs(distanceFromCenterY) <= verticalProximity;
+
+                    // Only process if cursor is within the header area both horizontally AND vertically
+                    if (Math.abs(distanceFromCenterX) <= horizontalProximity && isWithinVerticalBounds) {
                         // If cursor is above character by moveThreshold, move it down
                         if (distanceFromCenterY < -moveThresholdY && currentState !== 'moved-down') {
                             currentState = 'moved-down';
@@ -135,7 +139,7 @@
                             char.style.marginTop = originalMargin + 'px';
                         }
                     } else {
-                        // Cursor is far horizontally, return to center
+                        // Cursor is outside the active area, return to center
                         if (currentState !== 'center') {
                             currentState = 'center';
                             char.style.marginTop = originalMargin + 'px';
