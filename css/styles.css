@@ -484,15 +484,14 @@ main {
 }
 
 .project-icon {
-    width: 32px;      /* icon size */
-    height: 32px;     /* keeps them square */
+    width: 50px;      /* icon size */
+    height: 50px;     /* keeps them square */
     padding: 6px;     /* same buffer as your buttons */
     border-radius: 6px; /* optional: matches button rounding */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #000;      /* makes GitHub icon black */
-    font-size: 32px;   /* adjust for icon clarity */
 }
 
 .project-card p {
