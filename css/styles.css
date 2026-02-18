@@ -31,6 +31,15 @@ header {
     color: #52796F !important;
     transition: color 0.3s ease;
     padding: 0 !important;
+    font-family: "Bitcount Grid Double", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+        "slnt" 0,
+        "CRSV" 0.5,
+        "ELSH" 0,
+        "ELXP" 0;
 }
 
 .navbar-brand:hover {
