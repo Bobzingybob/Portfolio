@@ -154,7 +154,7 @@ main {
 /* CV Button in intro */
 .btn-cv {
     background-color: #52796F;
-    color: #CAD2C5;
+    color: #E8F0ED;
     border: none;
     padding: 0.8rem 1.2rem;
     border-radius: 8px;
@@ -166,12 +166,13 @@ main {
     position: relative;
     animation: pulseGlow 1.5s infinite ease-in-out;
     box-shadow: 0 0 0 rgba(53, 79, 82, 0);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .btn-cv:hover {
     background-color: #354F52;
     transform: translateY(-4px) scale(1.02);
-    color: #CAD2C5;
+    color: #E8F0ED;
 }
 
 /* Enhanced Glow animation - pulsing shadow effect with dark turquoise glow */

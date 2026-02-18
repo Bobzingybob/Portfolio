@@ -108,19 +108,43 @@
 
                 // Original position
                 const originalMargin = 0;
+                let currentState = 'center'; // 'center', 'moved-up', or 'moved-down'
+
+                // Distance thresholds
+                const moveThreshold = 50%; // Trigger movement at this distance
+                const returnThreshold = 70%; // Only return to center if cursor is this far away
 
                 // Top hover zone - moves character down
                 hoverZoneTop.addEventListener('mouseenter', () => {
+                    currentState = 'moved-down';
                     char.style.marginTop = '15px';
                 });
 
                 // Bottom hover zone - moves character up
                 hoverZoneBottom.addEventListener('mouseenter', () => {
+                    currentState = 'moved-up';
                     char.style.marginTop = '-15px';
                 });
 
-                // Reset when leaving individual character
+                // Check if cursor is far enough to return
+                char.addEventListener('mousemove', (e) => {
+                    const rect = char.getBoundingClientRect();
+                    const charCenterY = rect.top + rect.height / 2;
+                    const distanceFromCenter = Math.abs(e.clientY - charCenterY);
+                    const charHeight = rect.height;
+
+                    // Return to center only if cursor is far enough away
+                    if (distanceFromCenter > charHeight * 0.7) {
+                        if (currentState !== 'center') {
+                            currentState = 'center';
+                            char.style.marginTop = originalMargin + 'px';
+                        }
+                    }
+                });
+
+                // Reset when leaving character area entirely
                 char.addEventListener('mouseleave', () => {
+                    currentState = 'center';
                     char.style.marginTop = originalMargin + 'px';
                 });
             });
