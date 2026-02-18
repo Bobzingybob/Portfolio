@@ -22,28 +22,28 @@ body {
 header {
     background-color: #2F3E46 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0 !important;
+    padding: 1rem 0 !important;
 }
 
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #84A98C !important;
+    color: #52796F !important;
     transition: color 0.3s ease;
     padding: 0 !important;
 }
 
 .navbar-brand:hover {
-    color: #CAD2C5 !important;
+    color: #84A98C !important;
 }
 
 /* Interactive brand styling */
 .interactive-brand {
     display: flex;
-    gap: 0.15rem;
+    gap: 0.05rem;
     font-weight: 900;
     font-size: 1.3rem;
-    height: 2rem;
+    height: 2.5rem;
     align-items: center;
     white-space: nowrap;
 }
@@ -58,12 +58,12 @@ header {
     width: 1rem;
     overflow: visible;
     flex-shrink: 0;
-    text-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 4px 2px 6px rgba(0, 0, 0, 0.5);
     transition: margin-top 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .brand-char:nth-child(10) {
-    width: 0.5rem;
+    width: 0.3rem;
 }
 
 .hover-zone-top,
@@ -164,6 +164,7 @@ main {
     transition: background-color 0.25s ease, transform 0.15s ease;
     position: relative;
     animation: pulseGlow 2.5s infinite ease-in-out;
+    box-shadow: 0 0 0 rgba(132, 169, 140, 0);
 }
 
 .btn-cv:hover {
@@ -172,18 +173,18 @@ main {
     color: #CAD2C5;
 }
 
-/* Enhanced Glow animation - pulsing shadow effect with contrasting color */
+/* Enhanced Glow animation - pulsing shadow effect with contrasting light green */
 @keyframes pulseGlow {
     0% {
-        box-shadow: 0 0 15px rgba(132, 169, 140, 0.3), 0 0 25px rgba(202, 210, 197, 0.1);
+        box-shadow: 0 0 10px rgba(132, 169, 140, 0.4), 0 0 20px rgba(132, 169, 140, 0.2);
         transform: translateY(0) scale(1);
     }
     50% {
-        box-shadow: 0 0 40px rgba(132, 169, 140, 0.6), 0 0 70px rgba(202, 210, 197, 0.3), inset 0 0 20px rgba(132, 169, 140, 0.1);
+        box-shadow: 0 0 30px rgba(132, 169, 140, 0.8), 0 0 50px rgba(132, 169, 140, 0.5), inset 0 0 15px rgba(132, 169, 140, 0.15);
         transform: translateY(-2px) scale(1.02);
     }
     100% {
-        box-shadow: 0 0 15px rgba(132, 169, 140, 0.3), 0 0 25px rgba(202, 210, 197, 0.1);
+        box-shadow: 0 0 10px rgba(132, 169, 140, 0.4), 0 0 20px rgba(132, 169, 140, 0.2);
         transform: translateY(0) scale(1);
     }
 }
