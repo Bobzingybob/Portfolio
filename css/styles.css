@@ -440,11 +440,34 @@ main {
     border-left: 4px solid #84A98C;
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.card-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-icon img {
+    width: 26px;
+    height: 26px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .project-card h2 {
