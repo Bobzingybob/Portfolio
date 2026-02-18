@@ -35,6 +35,41 @@ header {
     color: #CAD2C5 !important;
 }
 
+/* Interactive brand styling */
+.interactive-brand {
+    display: flex;
+    gap: 0.2rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.brand-char {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 1.5em;
+    overflow: hidden;
+}
+
+.hover-zone-top,
+.hover-zone-bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: 0;
+    z-index: 10;
+}
+
+.hover-zone-top {
+    top: 0;
+    cursor: ns-resize;
+}
+
+.hover-zone-bottom {
+    bottom: 0;
+    cursor: ns-resize;
+}
+
 .navbar-nav .nav-link {
     margin-left: 1rem;
     transition: color 0.3s ease;
@@ -111,35 +146,36 @@ main {
     font-style: italic;
     font-size: 1.05rem;
     letter-spacing: 0.3px;
-    transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
-    box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    position: relative;
+    box-shadow: 0 0 20px rgba(82, 121, 111, 0.4);
 }
 
 .btn-cv:hover {
     background-color: #354F52;
     transform: translateY(-4px) scale(1.02);
     color: #CAD2C5;
-    box-shadow: 0 10px 26px rgba(37, 63, 62, 0.22);
+    box-shadow: 0 0 30px rgba(82, 121, 111, 0.7);
 }
 
-/* Pulse animation */
+/* Enhanced Glow animation - pulsing shadow effect */
 @keyframes pulseGlow {
     0% {
-        box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+        box-shadow: 0 0 20px rgba(82, 121, 111, 0.4);
         transform: translateY(0) scale(1);
     }
     50% {
-        box-shadow: 0 14px 30px rgba(37, 63, 62, 0.22);
+        box-shadow: 0 0 40px rgba(82, 121, 111, 0.7), 0 0 60px rgba(82, 121, 111, 0.4);
         transform: translateY(-2px) scale(1.02);
     }
     100% {
-        box-shadow: 0 6px 18px rgba(37, 63, 62, 0.18);
+        box-shadow: 0 0 20px rgba(82, 121, 111, 0.4);
         transform: translateY(0) scale(1);
     }
 }
 
 .pulse {
-    animation: pulseGlow 3s infinite ease-in-out;
+    animation: pulseGlow 2.5s infinite ease-in-out;
 }
 
 /* ===========================
