@@ -100,38 +100,46 @@
                 const originalMargin = 0;
                 let currentState = 'center'; // 'center', 'moved-up', or 'moved-down'
 
-                // Track mouse position globally on the brand container
-                const brandContainer = document.querySelector('.interactive-brand');
-
                 document.addEventListener('mousemove', (e) => {
                     const rect = char.getBoundingClientRect();
                     const charCenterY = rect.top + rect.height / 2;
-                    const distanceFromCenter = e.clientY - charCenterY;
+                    const charCenterX = rect.left + rect.width / 2;
+                    const distanceFromCenterY = e.clientY - charCenterY;
+                    const distanceFromCenterX = e.clientX - charCenterX;
                     const charHeight = rect.height;
+                    const charWidth = rect.width;
 
-                    // Distance threshold for MOVING (smaller threshold)
-                    const moveThreshold = charHeight * 0.3;
-                    // Distance threshold for RETURNING (DRASTICALLY LARGER - 3x the move threshold)
-                    const returnThreshold = charHeight * 3.0;
+                    // Distance thresholds
+                    const moveThresholdY = charHeight * 0.25;
+                    const returnThresholdY = charHeight * 1.5;
+                    const horizontalProximity = charWidth * 1.2; // Only respond if cursor is this close horizontally
 
-                    // If cursor is above character by moveThreshold, move it down
-                    if (distanceFromCenter < -moveThreshold && currentState !== 'moved-down') {
-                        currentState = 'moved-down';
-                        char.style.marginTop = '15px';
-                    }
-                    // If cursor is below character by moveThreshold, move it up
-                    else if (distanceFromCenter > moveThreshold && currentState !== 'moved-up') {
-                        currentState = 'moved-up';
-                        char.style.marginTop = '-15px';
-                    }
-                    // Return to center only if cursor is far enough away
-                    else if (Math.abs(distanceFromCenter) < returnThreshold && currentState !== 'center') {
-                        // If we're in a moved state but cursor is between -returnThreshold and +returnThreshold, stay moved
-                        // Only return if cursor exits this larger zone
-                    }
-                    else if (Math.abs(distanceFromCenter) >= returnThreshold && currentState !== 'center') {
-                        currentState = 'center';
-                        char.style.marginTop = originalMargin + 'px';
+                    // Only process if cursor is horizontally close to this character
+                    if (Math.abs(distanceFromCenterX) <= horizontalProximity) {
+                        // If cursor is above character by moveThreshold, move it down
+                        if (distanceFromCenterY < -moveThresholdY && currentState !== 'moved-down') {
+                            currentState = 'moved-down';
+                            char.style.marginTop = '15px';
+                        }
+                        // If cursor is below character by moveThreshold, move it up
+                        else if (distanceFromCenterY > moveThresholdY && currentState !== 'moved-up') {
+                            currentState = 'moved-up';
+                            char.style.marginTop = '-15px';
+                        }
+                        // Return to center if cursor moves back within the return threshold
+                        else if (Math.abs(distanceFromCenterY) <= returnThresholdY && currentState !== 'center') {
+                            // Stay in current moved state while within return threshold
+                        }
+                        else if (Math.abs(distanceFromCenterY) > returnThresholdY && currentState !== 'center') {
+                            currentState = 'center';
+                            char.style.marginTop = originalMargin + 'px';
+                        }
+                    } else {
+                        // Cursor is far horizontally, return to center
+                        if (currentState !== 'center') {
+                            currentState = 'center';
+                            char.style.marginTop = originalMargin + 'px';
+                        }
                     }
                 });
             });
