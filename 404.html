@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        // GitHub Pages 404.html redirect to index.html with clean URL routing
+        // This allows clean URLs like /Portfolio/home instead of /Portfolio/index.html
+
+        const segmentCount = 0;
+        const l = window.location;
+
+        // Store the path for later retrieval in index.html
+        sessionStorage.redirect = l.pathname + l.search;
+
+        // Redirect to index.html
+        l.href = l.origin + '/Portfolio/index.html';
+    </script>
+</head>
+<body>
+</body>
+</html>
+
