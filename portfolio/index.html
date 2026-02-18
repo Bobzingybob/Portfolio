@@ -7,11 +7,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/Portfolio/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
@@ -20,8 +20,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
 
-            <a class="navbar-brand interactive-brand" href="/Portfolio/home/">
-                <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">&#39;</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
+            <a class="navbar-brand interactive-brand" href="../home/">
+                <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">'</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -32,15 +32,15 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Portfolio/home/">Home</a>
+                        <a class="nav-link" href="../home/">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Portfolio/about/">About</a>
+                        <a class="nav-link" href="../about/">About</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/Portfolio/portfolio/">Portfolio</a>
+                        <a class="nav-link active" aria-current="page" href="../portfolio/">Portfolio</a>
                     </li>
 
                 </ul>
@@ -98,7 +98,7 @@
 
 </main>
 
-<div class="modal fade" id="unreal-modal" role="dialog" tabindex="-1" aria-labelledby="unreal-modal-label" aria-hidden="true">
+<div class="modal fade" id="unreal-modal" tabindex="-1" aria-labelledby="unreal-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -112,12 +112,12 @@
 
                 <ul>
                     <li>Single-author project — designed and implemented all gameplay systems and assets myself.</li>
-                    <li>Movement &amp; animation: 8-directional movement with animation blending that adapts to player orientation, producing smooth and responsive transitions.</li>
-                    <li>Advanced mechanics: bunny-hopping (bhop), a grapple mechanic, and the ability to attack while in motion.</li>
-                    <li>Interactive environment: multiple grapple interactions (swinging, anchoring, and release mechanics) and moving terrain elements that affect traversal and combat.</li>
+                    <li>Movement &amp; animation: 8-directional movement with animation blending that adapts to player orientation.</li>
+                    <li>Advanced mechanics: bunny-hopping, grappling, and attacking while in motion.</li>
+                    <li>Interactive environment with physics-based grapple interactions and moving terrain elements.</li>
                 </ul>
 
-                <p>To complete this project I self-taught C++ and the core workflows of Unreal Engine, relying on tutorial videos and C++ courses to learn new techniques and implement AAA-style mechanics and polish.</p>
+                <p>I self-taught C++ and Unreal Engine workflows, relying on documentation, tutorials, and experimentation to implement advanced mechanics and polish.</p>
             </div>
 
             <div class="modal-footer">
@@ -142,13 +142,11 @@
         const charStates = new Map();
         let mouseX = 0;
         let mouseY = 0;
-        let animationFrameId = null;
 
         brandChars.forEach((char) => {
             charStates.set(char, {
                 currentTranslateY: 0,
-                targetTranslateY: 0,
-                state: 'center'
+                targetTranslateY: 0
             });
             char.style.transform = 'translate3d(0, 0, 0)';
         });
@@ -159,71 +157,44 @@
         });
 
         function animationLoop() {
-            let hasChanges = false;
-
             brandChars.forEach((char) => {
                 const state = charStates.get(char);
                 const rect = char.getBoundingClientRect();
 
                 const charCenterY = rect.top + rect.height / 2;
                 const charCenterX = rect.left + rect.width / 2;
-                const distanceFromCenterY = mouseY - charCenterY;
-                const distanceFromCenterX = mouseX - charCenterX;
+
+                const distanceY = mouseY - charCenterY;
+                const distanceX = mouseX - charCenterX;
+
                 const charHeight = rect.height;
                 const charWidth = rect.width;
 
                 const moveThresholdY = charHeight * 0.15;
-                const returnThresholdY = charHeight * 0.4;
                 const horizontalProximity = charWidth * 1.2;
                 const verticalProximity = charHeight * 0.8;
-                const isWithinVerticalBounds = Math.abs(distanceFromCenterY) <= verticalProximity;
 
                 let newTargetY = 0;
-                let newState = 'center';
 
-                if (Math.abs(distanceFromCenterX) <= horizontalProximity && isWithinVerticalBounds) {
-                    if (distanceFromCenterY < -moveThresholdY) {
-                        newTargetY = 15;
-                        newState = 'moved-down';
-                    } else if (distanceFromCenterY > moveThresholdY) {
-                        newTargetY = -15;
-                        newState = 'moved-up';
-                    } else if (Math.abs(distanceFromCenterY) <= returnThresholdY) {
-                        newTargetY = state.targetTranslateY;
-                        newState = state.state;
-                    } else if (Math.abs(distanceFromCenterY) > returnThresholdY) {
-                        newTargetY = 0;
-                        newState = 'center';
-                    }
-                } else {
-                    newTargetY = 0;
-                    newState = 'center';
+                if (Math.abs(distanceX) <= horizontalProximity &&
+                    Math.abs(distanceY) <= verticalProximity) {
+
+                    if (distanceY < -moveThresholdY) newTargetY = 15;
+                    else if (distanceY > moveThresholdY) newTargetY = -15;
                 }
 
-                if (state.targetTranslateY !== newTargetY) {
-                    state.targetTranslateY = newTargetY;
-                    state.state = newState;
-                    hasChanges = true;
-                }
+                state.targetTranslateY = newTargetY;
 
-                const smoothingFactor = 0.12;
-                const newCurrentY = state.currentTranslateY + (state.targetTranslateY - state.currentTranslateY) * smoothingFactor;
+                const smoothing = 0.12;
+                state.currentTranslateY += (state.targetTranslateY - state.currentTranslateY) * smoothing;
 
-                if (Math.abs(newCurrentY - state.currentTranslateY) > 0.01) {
-                    state.currentTranslateY = newCurrentY;
-                    char.style.transform = `translate3d(0, ${newCurrentY}px, 0)`;
-                    hasChanges = true;
-                }
+                char.style.transform = `translate3d(0, ${state.currentTranslateY}px, 0)`;
             });
 
-            animationFrameId = requestAnimationFrame(animationLoop);
+            requestAnimationFrame(animationLoop);
         }
 
         animationLoop();
-
-        window.addEventListener('beforeunload', () => {
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        });
     });
 </script>
 

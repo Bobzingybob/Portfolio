@@ -7,11 +7,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/Portfolio/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
@@ -20,8 +20,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
 
-            <a class="navbar-brand interactive-brand" href="/Portfolio/home/">
-                <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">&#39;</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
+            <a class="navbar-brand interactive-brand" href="../home/">
+                <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">'</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -32,15 +32,15 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/Portfolio/home/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="../home/">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Portfolio/about/">About</a>
+                        <a class="nav-link" href="../about/">About</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Portfolio/portfolio/">Portfolio</a>
+                        <a class="nav-link" href="../portfolio/">Portfolio</a>
                     </li>
 
                 </ul>
@@ -62,7 +62,7 @@
         <p>This is the home page of my portfolio. Feel free to explore my work and learn more about me. Change between pages at the top right of the page.</p>
 
         <div class="mt-3 text-center">
-            <a href="/Portfolio/cv/CV.docx" download class="btn btn-cv pulse">Download my CV</a>
+            <a href="../cv/CV.docx" download class="btn btn-cv pulse">Download my CV</a>
         </div>
     </section>
 
@@ -72,15 +72,15 @@
         <div class="photo-gallery">
 
             <div class="photo-item">
-                <img src="/Portfolio/images/FitCheck.jpeg" alt="FitCheck" class="gallery-photo tall">
+                <img src="../images/FitCheck.jpeg" alt="FitCheck" class="gallery-photo tall">
             </div>
 
             <div class="photo-item">
-                <img src="/Portfolio/images/PhotoOfMeAndB.jpeg" alt="Will and B" class="profile-photo">
+                <img src="../images/PhotoOfMeAndB.jpeg" alt="Will and B" class="profile-photo">
             </div>
 
             <div class="photo-item">
-                <img src="/Portfolio/images/DiversityImage.jpeg" alt="Will, Dylan and Eric" class="gallery-photo wide">
+                <img src="../images/DiversityImage.jpeg" alt="Will, Dylan and Eric" class="gallery-photo wide">
             </div>
 
         </div>
@@ -142,8 +142,6 @@
         });
 
         function animationLoop() {
-            let hasChanges = false;
-
             brandChars.forEach((char) => {
                 const state = charStates.get(char);
                 const rect = char.getBoundingClientRect();
@@ -152,6 +150,7 @@
                 const charCenterX = rect.left + rect.width / 2;
                 const distanceFromCenterY = mouseY - charCenterY;
                 const distanceFromCenterX = mouseX - charCenterX;
+
                 const charHeight = rect.height;
                 const charWidth = rect.width;
 
@@ -159,54 +158,28 @@
                 const returnThresholdY = charHeight * 0.4;
                 const horizontalProximity = charWidth * 1.2;
                 const verticalProximity = charHeight * 0.8;
-                const isWithinVerticalBounds = Math.abs(distanceFromCenterY) <= verticalProximity;
 
                 let newTargetY = 0;
-                let newState = 'center';
 
-                if (Math.abs(distanceFromCenterX) <= horizontalProximity && isWithinVerticalBounds) {
-                    if (distanceFromCenterY < -moveThresholdY) {
-                        newTargetY = 15;
-                        newState = 'moved-down';
-                    } else if (distanceFromCenterY > moveThresholdY) {
-                        newTargetY = -15;
-                        newState = 'moved-up';
-                    } else if (Math.abs(distanceFromCenterY) <= returnThresholdY) {
-                        newTargetY = state.targetTranslateY;
-                        newState = state.state;
-                    } else if (Math.abs(distanceFromCenterY) > returnThresholdY) {
-                        newTargetY = 0;
-                        newState = 'center';
-                    }
-                } else {
-                    newTargetY = 0;
-                    newState = 'center';
+                if (Math.abs(distanceFromCenterX) <= horizontalProximity &&
+                    Math.abs(distanceFromCenterY) <= verticalProximity) {
+
+                    if (distanceFromCenterY < -moveThresholdY) newTargetY = 15;
+                    else if (distanceFromCenterY > moveThresholdY) newTargetY = -15;
                 }
 
-                if (state.targetTranslateY !== newTargetY) {
-                    state.targetTranslateY = newTargetY;
-                    state.state = newState;
-                    hasChanges = true;
-                }
+                state.targetTranslateY = newTargetY;
 
-                const smoothingFactor = 0.12;
-                const newCurrentY = state.currentTranslateY + (state.targetTranslateY - state.currentTranslateY) * smoothingFactor;
+                const smoothing = 0.12;
+                state.currentTranslateY += (state.targetTranslateY - state.currentTranslateY) * smoothing;
 
-                if (Math.abs(newCurrentY - state.currentTranslateY) > 0.01) {
-                    state.currentTranslateY = newCurrentY;
-                    char.style.transform = `translate3d(0, ${newCurrentY}px, 0)`;
-                    hasChanges = true;
-                }
+                char.style.transform = `translate3d(0, ${state.currentTranslateY}px, 0)`;
             });
 
             animationFrameId = requestAnimationFrame(animationLoop);
         }
 
         animationLoop();
-
-        window.addEventListener('beforeunload', () => {
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        });
     });
 </script>
 
