@@ -452,15 +452,7 @@ main {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.render-icon {
-    filter: none !important;
-    color: #000 !important;
-    fill: #000 !important;
-}
 
-.render-icon {
-    filter: brightness(0) saturate(100%) !important;
-}
 
 .card-icon i.bi-github {
     color: #000000;
