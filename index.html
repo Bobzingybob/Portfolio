@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand interactive-brand" href="/Portfolio/home">
+                <a class="navbar-brand interactive-brand" href="index.html">
                     <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">&#39;</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Portfolio/home">Home</a>
+                            <a class="nav-link active" aria-current="page" href="index.html" data-page="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Portfolio/about">About</a>
+                            <a class="nav-link" href="about.html" data-page="about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Portfolio/portfolio">Portfolio</a>
+                            <a class="nav-link" href="portfolio.html" data-page="portfolio">Portfolio</a>
                         </li>
                     </ul>
                 </div>
@@ -119,6 +119,9 @@
         // Client-side routing for clean URLs
         document.addEventListener('DOMContentLoaded', function() {
             const router = {
+                // Check if running on GitHub Pages
+                isGitHubPages: window.location.hostname === 'bobzingybob.github.io',
+
                 // Cache for loaded page content
                 pageCache: {},
 
@@ -151,14 +154,17 @@
 
                 // Handle navigation
                 navigate: function(page) {
-                    const cleanUrls = {
-                        'home': '/Portfolio/home',
-                        'about': '/Portfolio/about',
-                        'portfolio': '/Portfolio/portfolio'
-                    };
-
-                    const newUrl = cleanUrls[page] || '/Portfolio/home';
-                    window.history.pushState(null, null, newUrl);
+                    // On GitHub Pages, use clean URLs
+                    if (this.isGitHubPages) {
+                        const cleanUrls = {
+                            'home': '/Portfolio/home',
+                            'about': '/Portfolio/about',
+                            'portfolio': '/Portfolio/portfolio'
+                        };
+                        const newUrl = cleanUrls[page] || '/Portfolio/home';
+                        window.history.pushState(null, null, newUrl);
+                    }
+                    // Locally, just update the route without changing the actual URL
                     this.handleRoute();
                 },
 
@@ -177,7 +183,7 @@
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(html, 'text/html');
 
-                        // Find the main content (adjust selector based on your HTML structure)
+                        // Find the main content
                         const mainContent = doc.querySelector('main');
                         if (mainContent) {
                             this.pageCache[page] = mainContent.innerHTML;
@@ -196,15 +202,14 @@
                     // Update active nav link
                     document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
                         link.classList.remove('active');
+                        link.removeAttribute('aria-current');
                     });
 
                     // Find and highlight the active link
                     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
                     navLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        if ((currentPage === 'home' && (href === '/Portfolio/home' || href === 'index.html')) ||
-                            (currentPage === 'about' && (href === '/Portfolio/about' || href === 'about.html')) ||
-                            (currentPage === 'portfolio' && (href === '/Portfolio/portfolio' || href === 'portfolio.html'))) {
+                        const dataPage = link.getAttribute('data-page');
+                        if (dataPage === currentPage) {
                             link.classList.add('active');
                             link.setAttribute('aria-current', 'page');
                         }
@@ -254,18 +259,12 @@
                     const link = e.target.closest('a');
                     if (!link) return;
 
-                    const href = link.getAttribute('href');
+                    const dataPage = link.getAttribute('data-page');
 
                     // Handle internal navigation links
-                    if (href === 'index.html' || href === '/Portfolio/home' || href === '/Portfolio/') {
+                    if (dataPage) {
                         e.preventDefault();
-                        this.navigate('home');
-                    } else if (href === 'about.html' || href === '/Portfolio/about') {
-                        e.preventDefault();
-                        this.navigate('about');
-                    } else if (href === 'portfolio.html' || href === '/Portfolio/portfolio') {
-                        e.preventDefault();
-                        this.navigate('portfolio');
+                        this.navigate(dataPage);
                     }
                 }
             };
