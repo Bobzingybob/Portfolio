@@ -448,7 +448,7 @@ main {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    opacity: 0.75;
+    opacity: 0.85;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -458,6 +458,12 @@ main {
 
 .card-icon i.bi-github {
     color: #000000;
+}
+
+.card-icon:hover .project-icon {
+    transform: scale(1.15);
+    opacity: 1;
+    cursor: pointer;
 }
 
 .card-icon img {
@@ -475,6 +481,17 @@ main {
 .project-card h2 {
     color: #354F52;
     margin-bottom: 1rem;
+}
+
+.project-icon {
+    width: 32px;      /* icon size */
+    height: 32px;     /* keeps them square */
+    padding: 6px;     /* same buffer as your buttons */
+    border-radius: 6px; /* optional: matches button rounding */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;      /* makes GitHub icon black */
 }
 
 .project-card p {
