@@ -83,7 +83,9 @@ header {
     overflow: visible;
     flex-shrink: 0;
     text-shadow: 4px 2px 6px rgba(0, 0, 0, 0.5);
-    transition: margin-top 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
 }
 
 .brand-char:nth-child(10) {
@@ -202,7 +204,7 @@ main {
     color: #E8F0ED;
 }
 
-/* Enhanced Glow animation - pulsing shadow effect with dark turquoise glow */
+/* Glow animation - pulsing shadow effect */
 @keyframes pulseGlow {
     0% {
         box-shadow: 0 0 12px rgba(53, 79, 82, 0.5), 0 0 24px rgba(53, 79, 82, 0.2);
