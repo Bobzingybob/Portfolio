@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - My Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Portfolio/css/styles.css">
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <a class="navbar-brand interactive-brand" href="/Portfolio/home/">
+                <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">&#39;</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Portfolio/home/">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/Portfolio/about/">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Portfolio/portfolio/">Portfolio</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section class="about-section">
+        <h1>About Me</h1>
+
+        <p>Hello! My name is William, and I am an aspiring Computer Science student at the University of Dundee. I have a strong passion for programming, game development, cybersecurity, and building creative digital projects.</p>
+
+        <p>My journey into computing began with curiosity and experimentation, and over time it has grown into a deep interest in solving problems, creating interactive experiences, and understanding how systems work at every level.</p>
+
+        <h2>My Background</h2>
+
+        <p>I completed A-levels in Computer Science, Mathematics, and Philosophy, Religion & Ethics. During this time, I developed several independent projects, including a full Unreal Engine game written entirely in C++, a Python puzzle game, and multiple Java-based applications.</p>
+
+        <p>I enjoy learning new technologies and challenging myself with projects that push my skills further. Whether it's building a website, designing a game mechanic, or exploring new programming concepts, I always aim to create something meaningful and well-crafted.</p>
+
+        <h2>Skills & Interests</h2>
+
+        <ul>
+            <li>Java, Python, C++, HTML, CSS</li>
+            <li>Game development (Unreal Engine)</li>
+            <li>Web development and UI design</li>
+            <li>Problem-solving and algorithmic thinking</li>
+            <li>Cybersecurity fundamentals</li>
+            <li>Creative project design</li>
+        </ul>
+
+        <h2>My Goals</h2>
+
+        <p>As I continue my studies, I aim to expand my knowledge in software engineering, artificial intelligence, and advanced game development. I am always looking for opportunities to grow, collaborate, and build projects that make an impact.</p>
+
+        <p>Feel free to explore my portfolio to see some of the work I’ve completed so far!</p>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const brandChars = document.querySelectorAll('.brand-char');
+        if (brandChars.length === 0) return;
+
+        const charStates = new Map();
+        let mouseX = 0;
+        let mouseY = 0;
+        let animationFrameId = null;
+
+        brandChars.forEach((char) => {
+            charStates.set(char, {
+                currentTranslateY: 0,
+                targetTranslateY: 0,
+                state: 'center'
+            });
+            char.style.transform = 'translate3d(0, 0, 0)';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animationLoop() {
+            let hasChanges = false;
+
+            brandChars.forEach((char) => {
+                const state = charStates.get(char);
+                const rect = char.getBoundingClientRect();
+
+                const charCenterY = rect.top + rect.height / 2;
+                const charCenterX = rect.left + rect.width / 2;
+                const distanceFromCenterY = mouseY - charCenterY;
+                const distanceFromCenterX = mouseX - charCenterX;
+                const charHeight = rect.height;
+                const charWidth = rect.width;
+
+                const moveThresholdY = charHeight * 0.15;
+                const returnThresholdY = charHeight * 0.4;
+                const horizontalProximity = charWidth * 1.2;
+                const verticalProximity = charHeight * 0.8;
+                const isWithinVerticalBounds = Math.abs(distanceFromCenterY) <= verticalProximity;
+
+                let newTargetY = 0;
+                let newState = 'center';
+
+                if (Math.abs(distanceFromCenterX) <= horizontalProximity && isWithinVerticalBounds) {
+                    if (distanceFromCenterY < -moveThresholdY) {
+                        newTargetY = 15;
+                        newState = 'moved-down';
+                    } else if (distanceFromCenterY > moveThresholdY) {
+                        newTargetY = -15;
+                        newState = 'moved-up';
+                    } else if (Math.abs(distanceFromCenterY) <= returnThresholdY) {
+                        newTargetY = state.targetTranslateY;
+                        newState = state.state;
+                    } else if (Math.abs(distanceFromCenterY) > returnThresholdY) {
+                        newTargetY = 0;
+                        newState = 'center';
+                    }
+                } else {
+                    newTargetY = 0;
+                    newState = 'center';
+                }
+
+                if (state.targetTranslateY !== newTargetY) {
+                    state.targetTranslateY = newTargetY;
+                    state.state = newState;
+                    hasChanges = true;
+                }
+
+                const smoothingFactor = 0.12;
+                const newCurrentY = state.currentTranslateY + (state.targetTranslateY - state.currentTranslateY) * smoothingFactor;
+
+                if (Math.abs(newCurrentY - state.currentTranslateY) > 0.01) {
+                    state.currentTranslateY = newCurrentY;
+                    char.style.transform = `translate3d(0, ${newCurrentY}px, 0)`;
+                    hasChanges = true;
+                }
+            });
+
+            animationFrameId = requestAnimationFrame(animationLoop);
+        }
+
+        animationLoop();
+
+        window.addEventListener('beforeunload', () => {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        });
+    });
+</script>
+
+</body>
+</html>
