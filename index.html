@@ -108,12 +108,12 @@
 
     <!-- Clean URL Routing System -->
     <script>
-        // Handle GitHub Pages 404 redirect
-        if (sessionStorage.redirect) {
-            const redirect = sessionStorage.redirect;
-            delete sessionStorage.redirect;
-            const path = new URL(redirect, window.location.origin).pathname;
-            window.history.replaceState(null, null, path);
+        // Handle GitHub Pages 404 redirect - restore clean URL
+        if (sessionStorage.cleanPath) {
+            const cleanPath = sessionStorage.cleanPath;
+            delete sessionStorage.cleanPath;
+            // Replace the URL bar to show the clean path (without .html)
+            window.history.replaceState(null, null, cleanPath);
         }
 
         // Client-side routing for clean URLs

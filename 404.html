@@ -4,20 +4,24 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-        // GitHub Pages 404.html redirect to index.html with clean URL routing
+        // GitHub Pages 404.html clean URL routing
         // This allows clean URLs like /Portfolio/home instead of /Portfolio/index.html
 
-        const segmentCount = 0;
         const l = window.location;
 
-        // Store the path for later retrieval in index.html
-        sessionStorage.redirect = l.pathname + l.search;
+        // Extract the requested path (e.g., /Portfolio/home)
+        let path = l.pathname;
 
-        // Redirect to index.html
-        l.href = l.origin + '/Portfolio/index.html';
+        // Store the clean path for the router to use
+        sessionStorage.cleanPath = path;
+
+        // Redirect to index.html but the router will handle showing the right content
+        // Use replace to not add to history
+        l.replace(l.origin + '/Portfolio/?redirected=' + encodeURIComponent(path));
     </script>
 </head>
 <body>
+    <p>Redirecting...</p>
 </body>
 </html>
 
