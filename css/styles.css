@@ -452,7 +452,9 @@ main {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-
+.render-icon {
+    color: #000 !important;
+}
 
 .card-icon i.bi-github {
     color: #000000;
