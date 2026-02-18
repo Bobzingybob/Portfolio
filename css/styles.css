@@ -453,7 +453,7 @@ main {
 }
 
 .card-icon img {
-    filter: brightness(0);
+    filter: invert(0%) brightness(0%);
 }
 
 .card-icon i.bi-github {
