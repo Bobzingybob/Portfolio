@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - My Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -12,7 +15,9 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">William's Portfolio</a>
+                <a class="navbar-brand interactive-brand" href="index.html">
+                    <span class="brand-char" data-char="W">W</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="a">a</span><span class="brand-char" data-char="m">m</span><span class="brand-char" data-char="'">&#39;</span><span class="brand-char" data-char="s">s</span><span class="brand-char" data-char=" "> </span><span class="brand-char" data-char="P">P</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="r">r</span><span class="brand-char" data-char="t">t</span><span class="brand-char" data-char="f">f</span><span class="brand-char" data-char="o">o</span><span class="brand-char" data-char="l">l</span><span class="brand-char" data-char="i">i</span><span class="brand-char" data-char="o">o</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -97,6 +102,66 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Interactive Brand Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const brandChars = document.querySelectorAll('.brand-char');
+
+            brandChars.forEach((char, index) => {
+                // Original position
+                const originalMargin = 0;
+                let currentState = 'center'; // 'center', 'moved-up', or 'moved-down'
+
+                document.addEventListener('mousemove', (e) => {
+                    const rect = char.getBoundingClientRect();
+                    const charCenterY = rect.top + rect.height / 2;
+                    const charCenterX = rect.left + rect.width / 2;
+                    const distanceFromCenterY = e.clientY - charCenterY;
+                    const distanceFromCenterX = e.clientX - charCenterX;
+                    const charHeight = rect.height;
+                    const charWidth = rect.width;
+
+                    // Distance thresholds
+                    const moveThresholdY = charHeight * 0.15;
+                    const returnThresholdY = charHeight * 0.4;
+                    const horizontalProximity = charWidth * 1.2; // Only respond if cursor is this close horizontally
+
+                    // Check if cursor is within the character's bounding box vertically (with small buffer)
+                    const verticalProximity = charHeight * 0.8;
+                    const isWithinVerticalBounds = Math.abs(distanceFromCenterY) <= verticalProximity;
+
+                    // Only process if cursor is within the header area both horizontally AND vertically
+                    if (Math.abs(distanceFromCenterX) <= horizontalProximity && isWithinVerticalBounds) {
+                        // If cursor is above character by moveThreshold, move it down
+                        if (distanceFromCenterY < -moveThresholdY && currentState !== 'moved-down') {
+                            currentState = 'moved-down';
+                            char.style.marginTop = '15px';
+                        }
+                        // If cursor is below character by moveThreshold, move it up
+                        else if (distanceFromCenterY > moveThresholdY && currentState !== 'moved-up') {
+                            currentState = 'moved-up';
+                            char.style.marginTop = '-15px';
+                        }
+                        // Return to center if cursor moves back within the return threshold
+                        else if (Math.abs(distanceFromCenterY) <= returnThresholdY && currentState !== 'center') {
+                            // Stay in current moved state while within return threshold
+                        }
+                        else if (Math.abs(distanceFromCenterY) > returnThresholdY && currentState !== 'center') {
+                            currentState = 'center';
+                            char.style.marginTop = originalMargin + 'px';
+                        }
+                    } else {
+                        // Cursor is outside the active area, return to center
+                        if (currentState !== 'center') {
+                            currentState = 'center';
+                            char.style.marginTop = originalMargin + 'px';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
