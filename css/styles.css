@@ -458,8 +458,6 @@ main {
 
 .card-icon i.bi-github {
     color: #000000;
-    width: 50px;
-    height: 50px;
 }
 
 .card-icon:hover .project-icon {
@@ -494,6 +492,7 @@ main {
     align-items: center;
     justify-content: center;
     color: #000;      /* makes GitHub icon black */
+    font-size: 32px;   /* adjust for icon clarity */
 }
 
 .project-card p {
