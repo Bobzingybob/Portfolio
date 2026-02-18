@@ -96,60 +96,43 @@
             const brandChars = document.querySelectorAll('.brand-char');
 
             brandChars.forEach((char, index) => {
-                // Create hover zones above and below each character
-                const hoverZoneTop = document.createElement('div');
-                const hoverZoneBottom = document.createElement('div');
-
-                hoverZoneTop.className = 'hover-zone-top';
-                hoverZoneBottom.className = 'hover-zone-bottom';
-
-                char.appendChild(hoverZoneTop);
-                char.appendChild(hoverZoneBottom);
-
                 // Original position
                 const originalMargin = 0;
                 let currentState = 'center'; // 'center', 'moved-up', or 'moved-down'
-                let returnTimer = null;
 
-                // Top hover zone - moves character down
-                hoverZoneTop.addEventListener('mouseenter', () => {
-                    clearTimeout(returnTimer);
-                    currentState = 'moved-down';
-                    char.style.marginTop = '15px';
-                });
+                // Track mouse position globally on the brand container
+                const brandContainer = document.querySelector('.interactive-brand');
 
-                hoverZoneTop.addEventListener('mouseleave', () => {
-                    // Delay return to allow cursor to move to another zone without resetting
-                    returnTimer = setTimeout(() => {
-                        if (currentState === 'moved-down') {
-                            currentState = 'center';
-                            char.style.marginTop = originalMargin + 'px';
-                        }
-                    }, 100);
-                });
+                document.addEventListener('mousemove', (e) => {
+                    const rect = char.getBoundingClientRect();
+                    const charCenterY = rect.top + rect.height / 2;
+                    const distanceFromCenter = e.clientY - charCenterY;
+                    const charHeight = rect.height;
 
-                // Bottom hover zone - moves character up
-                hoverZoneBottom.addEventListener('mouseenter', () => {
-                    clearTimeout(returnTimer);
-                    currentState = 'moved-up';
-                    char.style.marginTop = '-15px';
-                });
+                    // Distance threshold for MOVING (smaller threshold)
+                    const moveThreshold = charHeight * 0.3;
+                    // Distance threshold for RETURNING (DRASTICALLY LARGER - 3x the move threshold)
+                    const returnThreshold = charHeight * 3.0;
 
-                hoverZoneBottom.addEventListener('mouseleave', () => {
-                    // Delay return to allow cursor to move to another zone without resetting
-                    returnTimer = setTimeout(() => {
-                        if (currentState === 'moved-up') {
-                            currentState = 'center';
-                            char.style.marginTop = originalMargin + 'px';
-                        }
-                    }, 100);
-                });
-
-                // Reset when leaving character area entirely
-                char.addEventListener('mouseleave', () => {
-                    clearTimeout(returnTimer);
-                    currentState = 'center';
-                    char.style.marginTop = originalMargin + 'px';
+                    // If cursor is above character by moveThreshold, move it down
+                    if (distanceFromCenter < -moveThreshold && currentState !== 'moved-down') {
+                        currentState = 'moved-down';
+                        char.style.marginTop = '15px';
+                    }
+                    // If cursor is below character by moveThreshold, move it up
+                    else if (distanceFromCenter > moveThreshold && currentState !== 'moved-up') {
+                        currentState = 'moved-up';
+                        char.style.marginTop = '-15px';
+                    }
+                    // Return to center only if cursor is far enough away
+                    else if (Math.abs(distanceFromCenter) < returnThreshold && currentState !== 'center') {
+                        // If we're in a moved state but cursor is between -returnThreshold and +returnThreshold, stay moved
+                        // Only return if cursor exits this larger zone
+                    }
+                    else if (Math.abs(distanceFromCenter) >= returnThreshold && currentState !== 'center') {
+                        currentState = 'center';
+                        char.style.marginTop = originalMargin + 'px';
+                    }
                 });
             });
         });
