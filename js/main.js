@@ -358,6 +358,7 @@ async function revealInOrder(element) {
     if (element.nodeType !== Node.ELEMENT_NODE) return;
 
     const currentElement = element;
+    currentElement.classList.remove("project-action-pending");
     if (currentElement.classList.contains("terminal-text-group")) {
         await revealTextGroup(currentElement);
         return;
@@ -451,6 +452,8 @@ async function setupPageEntry() {
     main.querySelectorAll(entryBoxSelector).forEach((box) => {
         box.classList.add("terminal-box-pending");
     });
+    main.querySelectorAll(".project-card > a, .project-card > .btn-read-more, .project-card > button")
+        .forEach((action) => action.classList.add("project-action-pending"));
 
     if (isHomePage) {
         const terminal = createSshTerminal();

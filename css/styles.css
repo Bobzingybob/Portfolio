@@ -593,6 +593,10 @@ main {
     margin-top: auto;
 }
 
+.project-action-pending {
+    visibility: hidden;
+}
+
 .project-card a {
     color: var(--color-page);
 }
