@@ -277,11 +277,18 @@ function revealTextGroup(group) {
     if (!characters.length) return Promise.resolve();
 
     const styles = getComputedStyle(root);
-    const characterStep = parseFloat(styles.getPropertyValue("--terminal-character-step")) || 6;
-    const characterDuration = parseFloat(styles.getPropertyValue("--terminal-character-duration")) || 55;
+    const characterStep = parseFloat(styles.getPropertyValue("--terminal-character-step")) || 1;
+    const scrambleSymbols = "01{}[]<>/\\|";
     characters.forEach((character, index) => {
         character.style.setProperty("--character-delay", `${index * characterStep}ms`);
         character.classList.add("terminal-character-active");
+        if (!/^\s+$/u.test(character.textContent)) {
+            character.classList.add("terminal-character-scrambling");
+            character.style.setProperty(
+                "--scramble-glyph",
+                JSON.stringify(scrambleSymbols[Math.floor(Math.random() * scrambleSymbols.length)])
+            );
+        }
 
         if (index % 24 === 0) {
             window.setTimeout(() => {
@@ -296,24 +303,54 @@ function revealTextGroup(group) {
     });
 
     return new Promise((resolve) => {
-        const finish = () => {
-            characters.forEach((character) => {
-                character.classList.add("terminal-character-revealed");
-                character.classList.remove("terminal-character", "terminal-character-active");
-                character.style.removeProperty("--character-delay");
-            });
-            group.classList.remove("terminal-text-group");
-            resolve();
-        };
+        let settledCount = 0;
+        const startedAt = performance.now();
+        const scrambleTimer = window.setInterval(() => {
+            const elapsed = performance.now() - startedAt;
+            const activeCount = Math.min(
+                characters.length,
+                Math.floor(elapsed / characterStep) + 1
+            );
+            const currentIndex = activeCount - 1;
 
-        const timeout = window.setTimeout(
-            finish,
-            (characters.length - 1) * characterStep + characterDuration + 20
-        );
-        characters.at(-1).addEventListener("animationend", () => {
-            window.clearTimeout(timeout);
-            finish();
-        }, { once: true });
+            while (settledCount < currentIndex) {
+                const character = characters[settledCount];
+                character.classList.add("terminal-character-revealed");
+                character.classList.remove(
+                    "terminal-character",
+                    "terminal-character-active",
+                    "terminal-character-scrambling"
+                );
+                character.style.removeProperty("--character-delay");
+                character.style.removeProperty("--scramble-glyph");
+                settledCount += 1;
+            }
+
+            if (currentIndex < characters.length) {
+                const character = characters[currentIndex];
+                if (!/^\s+$/u.test(character.textContent)) {
+                    character.style.setProperty(
+                        "--scramble-glyph",
+                        JSON.stringify(scrambleSymbols[Math.floor(Math.random() * scrambleSymbols.length)])
+                    );
+                }
+            }
+
+            if (currentIndex === characters.length - 1) {
+                const character = characters[currentIndex];
+                character.classList.add("terminal-character-revealed");
+                character.classList.remove(
+                    "terminal-character",
+                    "terminal-character-active",
+                    "terminal-character-scrambling"
+                );
+                character.style.removeProperty("--character-delay");
+                character.style.removeProperty("--scramble-glyph");
+                window.clearInterval(scrambleTimer);
+                group.classList.remove("terminal-text-group");
+                resolve();
+            }
+        }, 16);
     });
 }
 

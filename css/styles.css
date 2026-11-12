@@ -15,8 +15,8 @@
     --color-backdrop: rgb(3 9 6 / 78%);
     --matrix-opacity: 0.12;
     --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
-    --terminal-character-step: 2ms;
-    --terminal-character-duration: 35ms;
+    --terminal-character-step: 0.75ms;
+    --terminal-character-duration: 20ms;
     --terminal-box-duration: 150ms;
 }
 
@@ -36,8 +36,8 @@
     --color-glow: rgb(53 79 82 / 8%);
     --color-backdrop: rgb(22 35 31 / 55%);
     --matrix-opacity: 0.035;
-    --terminal-character-step: 1ms;
-    --terminal-character-duration: 25ms;
+    --terminal-character-step: 0.5ms;
+    --terminal-character-duration: 16ms;
     --terminal-box-duration: 100ms;
 }
 
@@ -58,8 +58,8 @@
         --color-glow: rgb(53 79 82 / 8%);
         --color-backdrop: rgb(22 35 31 / 55%);
         --matrix-opacity: 0.035;
-        --terminal-character-step: 1ms;
-        --terminal-character-duration: 25ms;
+        --terminal-character-step: 0.5ms;
+        --terminal-character-duration: 16ms;
         --terminal-box-duration: 100ms;
     }
 }
@@ -618,10 +618,6 @@ main {
     opacity: 1;
 }
 
-.render-icon {
-    color: var(--color-secondary);
-}
-
 .card-icon i.bi-github {
     margin-right: 0.5rem;
     color: var(--color-text);
@@ -631,6 +627,17 @@ main {
 .card-icon img {
     width: 42px;
     height: 42px;
+    filter: grayscale(1) brightness(0) invert(1);
+}
+
+:root[data-theme="light"] .card-icon .unreal-icon {
+    filter: grayscale(1) brightness(0.25);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme]) .card-icon .unreal-icon {
+        filter: grayscale(1) brightness(0.25);
+    }
 }
 
 .card-icon .unreal-icon {
@@ -863,6 +870,20 @@ footer p {
 
 .terminal-character-active {
     animation: character-reveal var(--terminal-character-duration) steps(1, end) var(--character-delay) both;
+}
+
+.terminal-character-scrambling {
+    position: relative;
+    color: transparent;
+}
+
+.terminal-character-scrambling::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--color-accent);
+    content: var(--scramble-glyph);
+    font-family: var(--font-mono);
 }
 
 .terminal-box-pending {
