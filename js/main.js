@@ -3,7 +3,7 @@ const root = document.documentElement;
 const validThemes = ["dark", "light"];
 const entryBoxSelector = ".hero, .intro, .accounts-section, .account-card, " +
     ".contact-section, .contact-item, .about-content, .education-block, " +
-    ".portfolio-content, .project-card, .intro .btn-cv";
+    ".projects-content, .project-card, .intro .btn-cv";
 
 function readSavedTheme() {
     try {
@@ -283,15 +283,13 @@ function revealTextGroup(group) {
         character.style.setProperty("--character-delay", `${index * characterStep}ms`);
         character.classList.add("terminal-character-active");
 
-        if (index % 8 === 0) {
+        if (index % 24 === 0) {
             window.setTimeout(() => {
+                if (!followRevealingText) return;
                 const rect = character.getBoundingClientRect();
                 const bottomMargin = 72;
                 if (rect.bottom > window.innerHeight - bottomMargin) {
-                    window.scrollBy({
-                        top: rect.bottom - (window.innerHeight - bottomMargin),
-                        behavior: "smooth"
-                    });
+                    scrollForRevealedText(rect.bottom - (window.innerHeight - bottomMargin));
                 }
             }, index * characterStep);
         }
@@ -310,7 +308,7 @@ function revealTextGroup(group) {
 
         const timeout = window.setTimeout(
             finish,
-            (characters.length - 1) * characterStep + characterDuration + 50
+            (characters.length - 1) * characterStep + characterDuration + 20
         );
         characters.at(-1).addEventListener("animationend", () => {
             window.clearTimeout(timeout);
@@ -337,6 +335,45 @@ async function revealInOrder(element) {
     }
 }
 
+let followRevealingText = true;
+let automaticScrollTimer;
+
+function stopFollowingRevealedText() {
+    followRevealingText = false;
+}
+
+function scrollForRevealedText(distance) {
+    if (!followRevealingText || distance <= 0) return;
+
+    window.clearTimeout(automaticScrollTimer);
+    document.documentElement.dataset.autoScrolling = "true";
+    window.scrollBy({ top: distance, behavior: "instant" });
+    automaticScrollTimer = window.setTimeout(() => {
+        delete document.documentElement.dataset.autoScrolling;
+    }, 100);
+}
+
+function setupRevealAutoScroll() {
+    window.addEventListener("wheel", stopFollowingRevealedText, { passive: true });
+    window.addEventListener("touchstart", stopFollowingRevealedText, { passive: true });
+    window.addEventListener("touchmove", stopFollowingRevealedText, { passive: true });
+    window.addEventListener("keydown", (event) => {
+        if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+            stopFollowingRevealedText();
+        }
+    });
+    window.addEventListener("scroll", () => {
+        if (document.documentElement.dataset.autoScrolling !== "true") {
+            stopFollowingRevealedText();
+        }
+    }, { passive: true });
+    window.addEventListener("pointerdown", (event) => {
+        if (event.clientX >= document.documentElement.clientWidth - 16) {
+            stopFollowingRevealedText();
+        }
+    }, { passive: true });
+}
+
 function createSshTerminal() {
     const overlay = document.createElement("div");
     const terminal = document.createElement("div");
@@ -356,7 +393,7 @@ function createSshTerminal() {
     connecting.className = "transition-status transition-connecting";
     authenticating.className = "transition-status transition-authenticating";
     connected.className = "transition-status transition-connected";
-    prompt.textContent = "$ ssh william@portfolio";
+    prompt.textContent = "william@local:~$ ssh portfolio";
     prompt.style.setProperty("--terminal-steps", prompt.textContent.length);
     connecting.append(spinner, document.createTextNode(" Connecting to remote host..."));
     authenticating.textContent = "Authenticating credentials...";
@@ -394,5 +431,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupWaveNavigationText();
     setupBrandAnimation();
     setupCyberWall();
+    setupRevealAutoScroll();
     setupPageEntry();
 });

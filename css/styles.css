@@ -15,9 +15,9 @@
     --color-backdrop: rgb(3 9 6 / 78%);
     --matrix-opacity: 0.12;
     --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
-    --terminal-character-step: 6ms;
-    --terminal-character-duration: 55ms;
-    --terminal-box-duration: 260ms;
+    --terminal-character-step: 2ms;
+    --terminal-character-duration: 35ms;
+    --terminal-box-duration: 150ms;
 }
 
 :root[data-theme="light"] {
@@ -36,9 +36,9 @@
     --color-glow: rgb(53 79 82 / 8%);
     --color-backdrop: rgb(22 35 31 / 55%);
     --matrix-opacity: 0.035;
-    --terminal-character-step: 3ms;
-    --terminal-character-duration: 45ms;
-    --terminal-box-duration: 160ms;
+    --terminal-character-step: 1ms;
+    --terminal-character-duration: 25ms;
+    --terminal-box-duration: 100ms;
 }
 
 @media (prefers-color-scheme: light) {
@@ -58,9 +58,9 @@
         --color-glow: rgb(53 79 82 / 8%);
         --color-backdrop: rgb(22 35 31 / 55%);
         --matrix-opacity: 0.035;
-        --terminal-character-step: 3ms;
-        --terminal-character-duration: 45ms;
-        --terminal-box-duration: 160ms;
+        --terminal-character-step: 1ms;
+        --terminal-character-duration: 25ms;
+        --terminal-box-duration: 100ms;
     }
 }
 
@@ -491,7 +491,7 @@ main {
 }
 
 .about-content h1,
-.portfolio-content h1 {
+.projects-content h1 {
     color: var(--color-text);
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
@@ -631,6 +631,11 @@ main {
 .card-icon img {
     width: 42px;
     height: 42px;
+}
+
+.card-icon .unreal-icon {
+    width: 42px;
+    height: 42px;
     opacity: 0.85;
     transition: opacity 180ms ease, transform 180ms ease;
 }
@@ -750,8 +755,9 @@ footer p {
     position: fixed;
     z-index: 9999;
     display: grid;
-    place-items: center;
-    padding: 1.5rem;
+    align-content: start;
+    justify-items: start;
+    padding: clamp(1.25rem, 5vw, 3.5rem);
     background: #000;
     color: #f2f2f2;
     inset: 0;
@@ -760,12 +766,12 @@ footer p {
 
 .transition-terminal {
     display: grid;
-    gap: 0.75rem;
-    width: min(620px, 100%);
-    padding: 1.5rem 0;
+    gap: 1rem;
+    width: min(780px, 100%);
+    padding: 1.25rem 0;
     color: #f2f2f2;
     font-family: var(--font-mono);
-    font-size: clamp(0.75rem, 3vw, 0.9rem);
+    font-size: clamp(1rem, 3vw, 1.2rem);
 }
 
 .transition-prompt {
