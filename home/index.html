@@ -7,11 +7,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/main.js"></script>
 </head>
 
 <body>
@@ -44,6 +46,7 @@
                     </li>
 
                 </ul>
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"></button>
             </div>
 
         </div>
@@ -58,31 +61,35 @@
     </section>
 
     <section class="intro">
-        <h2>Hello I am William, an aspiring Computer Science student at the University of Dundee</h2>
-        <p>This is the home page of my portfolio. Feel free to explore my work and learn more about me. Change between pages at the top right of the page.</p>
+        <h2>Hello, I'm William.</h2>
+        <p>I'm an aspiring Computer Science student at the University of Dundee. This is my portfolio—feel free to explore my work and learn more about me.</p>
 
         <div class="mt-3 text-center">
             <a href="../cv/CV.docx" download class="btn btn-cv pulse">Download my CV</a>
         </div>
     </section>
 
-    <section class="photo-section">
-        <h2 class="photo-title">Some recent photos of me</h2>
-
-        <div class="photo-gallery">
-
-            <div class="photo-item">
-                <img src="../images/FitCheck.jpeg" alt="FitCheck" class="gallery-photo tall">
-            </div>
-
-            <div class="photo-item">
-                <img src="../images/PhotoOfMeAndB.jpeg" alt="Will and B" class="profile-photo">
-            </div>
-
-            <div class="photo-item">
-                <img src="../images/DiversityImage.jpeg" alt="Will, Dylan and Eric" class="gallery-photo wide">
-            </div>
-
+    <section class="accounts-section" aria-labelledby="accounts-heading">
+        <h2 id="accounts-heading">Find me online</h2>
+        <div class="account-grid">
+            <a class="account-card" href="https://tryhackme.com/p/bobzingybob" target="_blank" rel="noopener noreferrer">
+                <span class="account-card-icon" aria-hidden="true"><i class="bi bi-shield-lock-fill"></i></span>
+                <span class="account-prompt">~/security</span>
+                <span class="account-name">TryHackMe</span>
+                <span class="account-description">Hands-on security learning</span>
+            </a>
+            <a class="account-card" href="https://profile.hackthebox.com/profile/019ec15a-1e8f-7258-a39c-596a7b263bd7?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
+                <span class="account-card-icon" aria-hidden="true"><i class="bi bi-boxes"></i></span>
+                <span class="account-prompt">~/labs</span>
+                <span class="account-name">Hack The Box</span>
+                <span class="account-description">Security labs and practice</span>
+            </a>
+            <a class="account-card" href="https://github.com/Bobzingybob" target="_blank" rel="noopener noreferrer">
+                <span class="account-card-icon" aria-hidden="true"><i class="bi bi-github"></i></span>
+                <span class="account-prompt">~/code</span>
+                <span class="account-name">GitHub</span>
+                <span class="account-description">Projects and experiments</span>
+            </a>
         </div>
     </section>
 
@@ -116,72 +123,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const brandChars = document.querySelectorAll('.brand-char');
-        if (brandChars.length === 0) return;
-
-        const charStates = new Map();
-        let mouseX = 0;
-        let mouseY = 0;
-        let animationFrameId = null;
-
-        brandChars.forEach((char) => {
-            charStates.set(char, {
-                currentTranslateY: 0,
-                targetTranslateY: 0,
-                state: 'center'
-            });
-            char.style.transform = 'translate3d(0, 0, 0)';
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animationLoop() {
-            brandChars.forEach((char) => {
-                const state = charStates.get(char);
-                const rect = char.getBoundingClientRect();
-
-                const charCenterY = rect.top + rect.height / 2;
-                const charCenterX = rect.left + rect.width / 2;
-                const distanceFromCenterY = mouseY - charCenterY;
-                const distanceFromCenterX = mouseX - charCenterX;
-
-                const charHeight = rect.height;
-                const charWidth = rect.width;
-
-                const moveThresholdY = charHeight * 0.15;
-                const returnThresholdY = charHeight * 0.4;
-                const horizontalProximity = charWidth * 1.2;
-                const verticalProximity = charHeight * 0.8;
-
-                let newTargetY = 0;
-
-                if (Math.abs(distanceFromCenterX) <= horizontalProximity &&
-                    Math.abs(distanceFromCenterY) <= verticalProximity) {
-
-                    if (distanceFromCenterY < -moveThresholdY) newTargetY = 15;
-                    else if (distanceFromCenterY > moveThresholdY) newTargetY = -15;
-                }
-
-                state.targetTranslateY = newTargetY;
-
-                const smoothing = 0.12;
-                state.currentTranslateY += (state.targetTranslateY - state.currentTranslateY) * smoothing;
-
-                char.style.transform = `translate3d(0, ${state.currentTranslateY}px, 0)`;
-            });
-
-            animationFrameId = requestAnimationFrame(animationLoop);
-        }
-
-        animationLoop();
-    });
-</script>
 
 </body>
 </html>
