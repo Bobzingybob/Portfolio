@@ -1,4 +1,5 @@
 const themeStorageKey = "portfolio-theme";
+const homeIntroStorageKey = "portfolio-home-intro-seen";
 const root = document.documentElement;
 const validThemes = ["dark", "light"];
 const entryBoxSelector = ".hero, .intro, .accounts-section, .account-card, " +
@@ -391,6 +392,17 @@ function scrollForRevealedText(distance) {
     }, 100);
 }
 
+function shouldPlayHomeIntro() {
+    try {
+        if (sessionStorage.getItem(homeIntroStorageKey) === "true") return false;
+        sessionStorage.setItem(homeIntroStorageKey, "true");
+        return true;
+    } catch (error) {
+        console.warn("Could not save the home intro state.", error);
+        return true;
+    }
+}
+
 function setupRevealAutoScroll() {
     window.addEventListener("wheel", stopFollowingRevealedText, { passive: true });
     window.addEventListener("touchstart", stopFollowingRevealedText, { passive: true });
@@ -446,21 +458,25 @@ async function setupPageEntry() {
     const main = document.querySelector("main");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isHomePage = /\/home\/?$/.test(window.location.pathname);
+    const shouldRevealContent = getCurrentTheme() === "dark";
 
     if (reducedMotion) return;
-    prepareTextNodes(main);
-    main.querySelectorAll(entryBoxSelector).forEach((box) => {
-        box.classList.add("terminal-box-pending");
-    });
-    main.querySelectorAll(".project-card > a, .project-card > .btn-read-more, .project-card > button")
-        .forEach((action) => action.classList.add("project-action-pending"));
+    if (shouldRevealContent) {
+        prepareTextNodes(main);
+        main.querySelectorAll(entryBoxSelector).forEach((box) => {
+            box.classList.add("terminal-box-pending");
+        });
+        main.querySelectorAll(".project-card > a, .project-card > .btn-read-more, .project-card > button")
+            .forEach((action) => action.classList.add("project-action-pending"));
+    }
 
-    if (isHomePage) {
+    if (isHomePage && shouldPlayHomeIntro()) {
         const terminal = createSshTerminal();
         await new Promise(resolve => window.setTimeout(resolve, 4000));
         terminal.remove();
     }
 
+    if (!shouldRevealContent) return;
     for (const section of Array.from(main.children)) {
         await revealInOrder(section);
     }
